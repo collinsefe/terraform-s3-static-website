@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "foo" {
-  bucket = "supandoproject-staticbucketwebsite-01022025"
+  bucket = "supandoproject-staticbucketwebsite-03022025"
 
   force_destroy = true
 
@@ -50,6 +50,6 @@ resource "aws_s3_object" "object" {
   content_type = "text/html"
   key          = "index.html"
   source       = "./index.html"
-  etag         = "${md5(file("./index.html"))}" #"${md5(file("path/to/file"))}
+  etag         = md5(file("./index.html"))
 
 }
