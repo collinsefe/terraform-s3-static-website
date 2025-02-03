@@ -48,6 +48,13 @@ on:
   push:
     branches: [ "main" ]
   pull_request:
+    branches: [ "main" ]
+
+env:
+  # BUCKET_NAME : "terraform-tfstate-bucket-01122024"
+  AWS_REGION : "eu-west-2"
+  ROLE-TO-ASSUME : "arn:aws:iam::710271940286:role/github-assume-role"
+
 
 permissions:
   contents: read
@@ -71,8 +78,14 @@ jobs:
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
+  
+
+    - name: configure aws credentials
+      uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502
       with:
-        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+        role-to-assume: ${{ env.ROLE-TO-ASSUME }}
+        role-session-name: github-actions-user
+        aws-region: ${{ env.AWS_REGION }}
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
