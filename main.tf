@@ -69,6 +69,6 @@ resource "aws_s3_object" "this" {
   content_type = "image/png"
   key          = "website.png"
   source       = "./website.png"
-  etag         = md5(file("./website.png"))
+  etag         = filemd5("./website.png")
 
 }
