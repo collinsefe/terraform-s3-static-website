@@ -35,9 +35,9 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
   
-
-    - name: configure aws credentials
-      uses: aws-actions/configure-aws-credentials@d89e3bd43d5d909b47a18977aa9d5ce36cee184c
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2 
+      # uses: aws-actions/configure-aws-credentials@d89e3bd43d5d909b47a18977aa9d5ce36cee184c 
       with:
         role-to-assume: ${{ env.ROLE-TO-ASSUME }}
         role-session-name: github-actions-user
