@@ -41,7 +41,7 @@ jobs:
         aws-region: ${{ env.AWS_REGION }}
 
     - name: Terraform Init
-      run: terraform init
+      run: terraform init -reconfigure
 
     - name: Terraform Format
       run: terraform fmt -check
