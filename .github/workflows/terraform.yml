@@ -81,7 +81,7 @@ jobs:
   
 
     - name: configure aws credentials
-      uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502
+      uses: aws-actions/configure-aws-credentials@d89e3bd43d5d909b47a18977aa9d5ce36cee184c
       with:
         role-to-assume: ${{ env.ROLE-TO-ASSUME }}
         role-session-name: github-actions-user
