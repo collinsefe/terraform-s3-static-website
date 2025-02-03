@@ -3,10 +3,6 @@ resource "aws_s3_bucket" "foo" {
 
   force_destroy = true
 
-  tags = {
-    Name        = "AWS Static Website bucket"
-    Environment = "Dev"
-  }
 }
 
 
