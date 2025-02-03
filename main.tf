@@ -1,12 +1,8 @@
 resource "aws_s3_bucket" "foo" {
-  bucket = "supandoproject-staticbucketwebsite-03022025"
+  bucket = "project-staticbucketwebsite-03022025"
 
   force_destroy = true
 
-  tags = {
-    Name        = "AWS Static Website bucket"
-    Environment = "Dev"
-  }
 }
 
 
