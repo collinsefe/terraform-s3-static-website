@@ -9,6 +9,8 @@ This Terraform script provisions an **AWS S3 bucket** configured to host a stati
 - Sets **public read access** for hosted content.
 - Uploads an HTML page (`index.html`) and images (`contact-us.jpg`, `website.png`).
 - Allows full bucket ownership control.
+- Applies an **S3 bucket policy** to allow public read access to the website.
+- Outputs the **S3 bucket URL endpoint** for easy access.
 
 ## Prerequisites
 Ensure you have the following installed:
@@ -38,7 +40,7 @@ terraform apply -auto-approve
 ### **4️⃣ Verify Website Deployment**
 Once applied, obtain the S3 website endpoint:
 ```sh
-echo "http://$(terraform output -raw website_endpoint)"
+echo "http://$(terraform output -raw bucket_url_endpoint)"
 ```
 Open the URL in a browser to confirm the website is live.
 
@@ -46,7 +48,7 @@ Open the URL in a browser to confirm the website is live.
 
 ```hcl
 resource "aws_s3_bucket" "foo" {
-  bucket = "supandoproject-staticbucketwebsite-03022025"
+  bucket = "staticwebsitebucket-03022025"
   force_destroy = true
 }
 
@@ -81,6 +83,31 @@ resource "aws_s3_bucket_acl" "foo" {
   acl    = "public-read"
 }
 
+resource "aws_s3_bucket_policy" "that" {
+  bucket = aws_s3_bucket.foo.id
+  policy = data.aws_iam_policy_document.static_website.json
+}
+
+data "aws_iam_policy_document" "static_website" {
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "s3:GetObject"
+    ]
+
+    resources = [
+      aws_s3_bucket.foo.arn,
+      "${aws_s3_bucket.foo.arn}/*",
+    ]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+  }
+}
+
 resource "aws_s3_object" "object" {
   bucket       = aws_s3_bucket.foo.id
   content_type = "text/html"
@@ -103,6 +130,10 @@ resource "aws_s3_object" "this" {
   key          = "website.png"
   source       = "./website.png"
   etag         = filemd5("./website.png")
+}
+
+output "bucket_url_endpoint" {
+  value = aws_s3_bucket.foo.bucket_domain_name
 }
 ```
 
