@@ -53,3 +53,13 @@ resource "aws_s3_object" "object" {
   etag         = md5(file("./index.html"))
 
 }
+
+
+resource "aws_s3_object" "foo" {
+  bucket       = aws_s3_bucket.foo.id
+  content_type = "text/jpg"
+  key          = "contact-us.jpg"
+  source       = "./contact-us.jpg"
+  #   etag         = md5(file("./index.html"))
+
+}
