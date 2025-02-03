@@ -57,9 +57,18 @@ resource "aws_s3_object" "object" {
 
 resource "aws_s3_object" "foo" {
   bucket       = aws_s3_bucket.foo.id
-  content_type = "text/jpg"
+  content_type = "image/jpeg"
   key          = "contact-us.jpg"
   source       = "./contact-us.jpg"
-  #   etag         = md5(file("./index.html"))
+  etag         = filemd5("./contact-us.jpg")
+
+}
+
+resource "aws_s3_object" "this" {
+  bucket       = aws_s3_bucket.foo.id
+  content_type = "image/png"
+  key          = "website.png"
+  source       = "./website.png"
+  etag         = md5(file("./website.png"))
 
 }
