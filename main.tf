@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "foo" {
-  bucket = "project-staticbucketwebsite-03022025"
+  bucket = "mupandoproject-staticbucketwebsite-03022025"
 
   force_destroy = true
 
