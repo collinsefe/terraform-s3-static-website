@@ -146,7 +146,7 @@ terraform destroy -auto-approve
 ## Notes
 - Ensure **index.html** and images (`contact-us.jpg`, `website.png`) exist in your local directory before applying Terraform.
 - AWS **may block public access** by default. 
-  The bucket policy has been created to allow public access.
+  We created an S3 bucket policy to allow public-read access.
 - You can configure **CloudFront** for enhanced performance and security.
 
 ## Author

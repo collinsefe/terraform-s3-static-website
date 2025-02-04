@@ -1,10 +1,7 @@
 resource "aws_s3_bucket" "foo" {
-  bucket = "project-staticbucketwebsite-03022025"
-
+  bucket        = "mupandoproject-staticbucketwebsite-03022025"
   force_destroy = true
-
 }
-
 
 resource "aws_s3_bucket_website_configuration" "this" {
   bucket = aws_s3_bucket.foo.id
@@ -47,7 +44,6 @@ resource "aws_s3_object" "object" {
   key          = "index.html"
   source       = "./index.html"
   etag         = md5(file("./index.html"))
-
 }
 
 
@@ -57,7 +53,6 @@ resource "aws_s3_object" "foo" {
   key          = "contact-us.jpg"
   source       = "./contact-us.jpg"
   etag         = filemd5("./contact-us.jpg")
-
 }
 
 resource "aws_s3_object" "this" {
@@ -66,5 +61,4 @@ resource "aws_s3_object" "this" {
   key          = "website.png"
   source       = "./website.png"
   etag         = filemd5("./website.png")
-
 }
