@@ -64,7 +64,7 @@ resource "aws_s3_object" "this" {
 }
 
 resource "aws_s3_object" "error" {
-  bucket       = aws_s3_bucket.collins.id
+  bucket       = aws_s3_bucket.foo.id
   content_type = "text/html"
   key          = "error.html"
   source       = "assets/error.html"
