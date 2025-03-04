@@ -55,6 +55,14 @@ resource "aws_s3_object" "foo" {
   etag         = filemd5("assets/contact-us.jpg")
 }
 
+resource "aws_s3_object" "coll" {
+  bucket       = aws_s3_bucket.foo.id
+  content_type = "image/jpeg"
+  key          = "index.jpg"
+  source       = "assets/index.jpg"
+  etag         = filemd5("assets/index.jpg")
+}
+
 resource "aws_s3_object" "this" {
   bucket       = aws_s3_bucket.foo.id
   content_type = "image/png"
@@ -68,5 +76,7 @@ resource "aws_s3_object" "error" {
   content_type = "text/html"
   key          = "error.html"
   source       = "assets/error.html"
-  etag         = md5(file("assets/error.html"))
+  etag         = filemd5("assets/error.html")
 }
+
+
