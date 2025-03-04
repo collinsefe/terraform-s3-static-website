@@ -42,8 +42,8 @@ resource "aws_s3_object" "object" {
   bucket       = aws_s3_bucket.foo.id
   content_type = "text/html"
   key          = "index.html"
-  source       = "./index.html"
-  etag         = md5(file("./index.html"))
+  source       = "assets/index.html"
+  etag         = md5(file("assets/index.html"))
 }
 
 
@@ -51,14 +51,32 @@ resource "aws_s3_object" "foo" {
   bucket       = aws_s3_bucket.foo.id
   content_type = "image/jpeg"
   key          = "contact-us.jpg"
-  source       = "./contact-us.jpg"
-  etag         = filemd5("./contact-us.jpg")
+  source       = "assets/contact-us.jpg"
+  etag         = filemd5("assets/contact-us.jpg")
+}
+
+resource "aws_s3_object" "coll" {
+  bucket       = aws_s3_bucket.foo.id
+  content_type = "image/jpeg"
+  key          = "index.jpg"
+  source       = "assets/index.jpg"
+  etag         = filemd5("assets/index.jpg")
 }
 
 resource "aws_s3_object" "this" {
   bucket       = aws_s3_bucket.foo.id
   content_type = "image/png"
   key          = "website.png"
-  source       = "./website.png"
-  etag         = filemd5("./website.png")
+  source       = "assets/website.png"
+  etag         = filemd5("assets/website.png")
 }
+
+resource "aws_s3_object" "error" {
+  bucket       = aws_s3_bucket.foo.id
+  content_type = "text/html"
+  key          = "error.html"
+  source       = "assets/error.html"
+  etag         = filemd5("assets/error.html")
+}
+
+
